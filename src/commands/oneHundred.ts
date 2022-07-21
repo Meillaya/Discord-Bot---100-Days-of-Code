@@ -16,11 +16,12 @@ export const oneHundred: CommandInt = {
                 .setRequired(true)
             ), 
 
-    run: async(interaction) => {
+    run: async (interaction) => {
 
         await interaction.deferReply();
         const {user} = interaction;
-        const text = interaction.options.get("message", true);
+        const text = interaction;
+        
 
         const targetCamper = await getCamperData(user.id);
         const updatedCamper = await updateCamperData(targetCamper);
@@ -31,9 +32,15 @@ export const oneHundred: CommandInt = {
         oneHundredEmbed.setAuthor({
             name: user.tag,
             iconURL: user.defaultAvatarURL,
-        })
-        oneHundredEmbed.addField("Round", updatedCamper.round.toString(), true)
-        oneHundredEmbed.addField("Day", updatedCamper.day.toString(), true)
+        });
+        oneHundredEmbed.addField("Round", updatedCamper.round.toString(), true);
+        oneHundredEmbed.addField("Day", updatedCamper.day.toString(), true);
+        oneHundredEmbed.setFooter({
+            text: 
+            "Day completed:  " + 
+                new Date(updatedCamper.timestamp).toLocaleDateString()
+        });
+        await interaction.editReply({ embeds: [oneHundredEmbed] });
 
     }
 };
