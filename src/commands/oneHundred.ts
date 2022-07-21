@@ -20,8 +20,7 @@ export const oneHundred: CommandInt = {
 
         await interaction.deferReply();
         const {user} = interaction;
-        const text = interaction;
-        
+        const text = interaction.options.getString("message", true);
 
         const targetCamper = await getCamperData(user.id);
         const updatedCamper = await updateCamperData(targetCamper);
