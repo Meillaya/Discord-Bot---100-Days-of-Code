@@ -1,8 +1,9 @@
-import { CommandInt } from "../interfaces/Command";
+import { CommandInt } from "../interfaces/CommandInt";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { getCamperData } from "../modules/getCamperData";
 import { updateCamperData } from "../modules/updateCamperData";
 const { MessageEmbed } = require('discord.js');
+const wait = require('node:timers/promises').setTimeout;
 
 export const oneHundred: CommandInt = {
 
@@ -19,8 +20,9 @@ export const oneHundred: CommandInt = {
     run: async (interaction) => {
 
         await interaction.deferReply();
+        await wait(4000);
         const {user} = interaction;
-        const text = interaction.options.getString("message", true);
+        const text = (<any>interaction).options.getString("message", true);
 
         const targetCamper = await getCamperData(user.id);
         const updatedCamper = await updateCamperData(targetCamper);
