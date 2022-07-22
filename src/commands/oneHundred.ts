@@ -23,7 +23,7 @@ export const oneHundred: CommandInt = {
         await wait(4000);
         const {user} = interaction;
         const text = (<any>interaction).options.getString("message", true);
-
+        
         const targetCamper = await getCamperData(user.id);
         const updatedCamper = await updateCamperData(targetCamper);
 
