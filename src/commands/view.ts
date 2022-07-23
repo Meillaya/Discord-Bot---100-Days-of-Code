@@ -24,14 +24,17 @@ export const view:  CommandInt = {
 
     const viewEmbed = new MessageEmbed();
     viewEmbed.setTitle("My 100 Days of Code progress.")
-    viewEmbed.setDescription(`Here is my 100 Days of Code progress. I last reported an update on: ${new Date(targetCamper.timestamp).toLocaleDateString()}.` );
+    viewEmbed.setDescription(
+        `Here is my 100 Days of Code progress. I last reported an update on:
+        ${new Date(targetCamper.timestamp)
+        .toLocaleDateString()}.` );
     viewEmbed.setAuthor({
         name: user.tag,
         iconUrl : user.displayAvatarURL(),
     });
         
-    viewEmbed.addField("Round", viewEmbed.round.toString(), true);
-    viewEmbed.addField("Day", viewEmbed.day.toString(), true);
+    viewEmbed.addField("Round", targetCamper.round.toString(), true);
+    viewEmbed.addField("Day", targetCamper.day.toString(), true);
 
     await interaction.editReply({embeds: [viewEmbed]});
 }
